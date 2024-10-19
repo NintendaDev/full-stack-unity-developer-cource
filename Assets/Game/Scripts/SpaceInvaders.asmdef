@@ -1,0 +1,14 @@
+{
+    "name": "SpaceInvaders",
+    "rootNamespace": "SpaceInvaders",
+    "references": ["GUID:95f265f509f565a4ca050bf09dba7026","GUID:2de9b22e4e5ee7e46b6674c1775e50f3","GUID:5eb13eaeff84fa64dbfb99a8a2dad924"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -15,11 +15,11 @@ TagManager:
   - 
   - 
   - 
-  - Character
+  - Player
   - Enemy
   - 
-  - EnemyBullet
-  - PlayerBullet
+  - Bullet
+  - LevelBound
   - 
   - 
   - 
@@ -40,4 +40,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 726961981
+    locked: 0
+  - name: Bullets
+    uniqueID: 1343488417
+    locked: 0
+  - name: Enemies
+    uniqueID: 1356736387
+    locked: 0
+  - name: Player
+    uniqueID: 3801138801
+    locked: 0
+  - name: Environment
+    uniqueID: 2040488953
     locked: 0
