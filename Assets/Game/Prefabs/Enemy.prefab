@@ -182,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09a324f54d94d6e84681731f36566c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemy: {fileID: 8854613986655820417}
   _weapon: {fileID: 9178013170079412237}
   _destinationAutoMover: {fileID: 3562461423356020538}
   _autoShooter: {fileID: 5118527991624166575}

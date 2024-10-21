@@ -13,7 +13,7 @@ namespace SpaceInvaders.Enemies
     {
         [SerializeField, Required] private PointsProvider _spawnPoints;
         [SerializeField, Required] private PointsProvider _attackPoints;
-        [SerializeField, Required] private ShipFactory _factory;
+        [SerializeField, Required] private EnemyFactory _factory;
         [SerializeField, MinValue(0)] private Vector2 _spawnTimeRange = new(1, 2);
         
         private Ship _player;
@@ -39,15 +39,10 @@ namespace SpaceInvaders.Enemies
         private void SpawnEnemy()
         {
             Transform randomSpawnPoint = _spawnPoints.GetRandomPoint();
-            Ship enemy = _factory.Create(randomSpawnPoint.position, randomSpawnPoint.rotation, randomSpawnPoint);
-                
+            EnemyAI enemy = _factory.Create(randomSpawnPoint.position, randomSpawnPoint.rotation, randomSpawnPoint);
             Transform attackPosition = _attackPoints.GetRandomPoint();
-
-            if (enemy.TryGetComponent(out EnemyAI enemyAI) == false)
-                throw new Exception("The Enemy AI component was not found when creating an enemy ship");
-            
-            enemyAI.SetDestination(attackPosition.position);
-            enemyAI.SetTarget(_player.transform);
+            enemy.SetDestination(attackPosition.position);
+            enemy.SetTarget(_player.transform);
         }
     }
 }
