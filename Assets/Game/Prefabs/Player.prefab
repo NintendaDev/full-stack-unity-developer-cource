@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c57ed31af8d94ec3b11df7e2b588d40f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 6799125967610205483}
 --- !u!114 &2204600333523957295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eebcc24ed3e4194b0ec4339b3a591d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isImmortal: 0
   _maxValue: 15
 --- !u!1 &3926786963072264211
 GameObject:
@@ -217,7 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3926786963072264220}
   - component: {fileID: 2693922590649752054}
-  - component: {fileID: 8533765092255891600}
+  - component: {fileID: 417920243905499204}
   m_Layer: 10
   m_Name: Weapon
   m_TagString: Untagged
@@ -252,9 +252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4a670c03914f7cb633f96ec2ee6fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletFactory: {fileID: 8533765092255891600}
+  _bulletFactory: {fileID: 417920243905499204}
   _firePoint: {fileID: 3926786963072264220}
---- !u!114 &8533765092255891600
+--- !u!114 &417920243905499204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3926786963072264211}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e84a5ecfdfd44481af9823d0dce8aff3, type: 3}
+  m_Script: {fileID: 11500000, guid: d31e91db9f4043e5965b447e91f76491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 201757604187811891, guid: 5fe72886874b4e445b06cf777ca4920d, type: 3}

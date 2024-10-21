@@ -2,7 +2,7 @@
 
 namespace SpaceInvaders.PlayerInput
 {
-    public sealed class LegacyPlayerInput : IPlayerInput
+    public sealed class PlayerInput : IPlayerInput
     {
         private readonly Vector2 _leftDirection = new(-1, 0);
         private readonly Vector2 _rightDirection = new(1, 0);

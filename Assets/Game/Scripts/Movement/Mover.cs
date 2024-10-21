@@ -15,23 +15,18 @@ namespace SpaceInvaders.Movement
         private Transform _transform;
         private Vector2 _moveStep;
         private Vector3 _movePosition;
-        private bool _isInitialized;
 
-        public bool CanMove() => _isInitialized && _canMoveValidator.IsValid() && _moveDirection.sqrMagnitude > 0;
-
-        public void Initialize()
+        private void Awake()
         {
-            if (_isInitialized)
-                return;
-            
             _rigidbody = GetComponent<Rigidbody2D>();
             _transform = transform;
-            _isInitialized = true;
         }
+
+        public bool CanMove => _canMoveValidator.IsValid() && _moveDirection.sqrMagnitude > 0;
 
         private void FixedUpdate()
         {
-            if (CanMove() == false)
+            if (CanMove == false)
                 return;
             
             _moveStep = _moveDirection * (Time.fixedDeltaTime * _speed);

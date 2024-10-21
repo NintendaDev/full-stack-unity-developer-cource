@@ -38,14 +38,14 @@ namespace Modules.ObjectManagement.Scripts.Pools
             _items.Enqueue(item);
         }
 
-        protected virtual void OnSpawn(T enemy)
+        protected virtual void OnSpawn(T item)
         {
-            enemy.gameObject.SetActive(true);
+            item.gameObject.SetActive(true);
         }
 
-        protected virtual void OnDespawn(T enemy)
+        protected virtual void OnDespawn(T item)
         {
-            enemy.gameObject.SetActive(false);
+            item.gameObject.SetActive(false);
         }
     }
 }

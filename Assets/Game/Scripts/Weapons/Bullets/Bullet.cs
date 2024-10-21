@@ -7,28 +7,24 @@ using UnityEngine;
 namespace SpaceInvaders.Weapons.Bullets
 {
     [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Mover))]
     public sealed class Bullet : MonoBehaviour
     {
-        [SerializeField, Required] private Mover _mover;
         [SerializeField] private Color _color = Color.red;
         [SerializeField, MinValue(0)] private float _damage;
         [SerializeField] private LayerMask _hitLayerMask = ~1;
-        
+
+        private Mover _mover;
         private SpriteRenderer _renderer;
         private bool _isInitialized;
 
         public event Action<Bullet> Hit;
 
-        public void Initialize()
+        private void Awake()
         {
-            if (_isInitialized)
-                return;
-            
             _renderer = GetComponent<SpriteRenderer>();
-            _mover.Initialize();
+            _mover = GetComponent<Mover>();
             _renderer.color = _color;
-
-            _isInitialized = true;
         }
 
         public void Launch(Vector2 direction) => _mover.Move(direction);

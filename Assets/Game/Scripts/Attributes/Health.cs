@@ -7,12 +7,9 @@ namespace SpaceInvaders.Attributes
 {
     public sealed class Health : MonoBehaviour, IDamageable
     {
-        [SerializeField] private bool _isImmortal;
         [SerializeField, MinValue(0)] private float _maxValue;
         
         private MemorizedValue<float> _currentValue;
-
-        public event Action<float> Changed;
 
         public event Action Died;
 
@@ -25,26 +22,19 @@ namespace SpaceInvaders.Attributes
             {
                 _currentValue.Set(Mathf.Max(0, value));
 
-                if (_currentValue.IsChanged)
-                {
-                    Changed?.Invoke(_currentValue.Value);
-
-                    if (_currentValue.Value == 0)
-                        Died?.Invoke();
-                }
+                if (_currentValue is { IsChanged: true, Value: 0 })
+                    Died?.Invoke();
             }
         }
 
-        public void Initialize()
+
+        private void Awake()
         {
             Reset();
         }
 
         public void TakeDamage(float damage)
         {
-            if (_isImmortal)
-                return;
-            
             if (damage <= 0)
                 throw new ArgumentException("Damage must be greater or equal 0");
             

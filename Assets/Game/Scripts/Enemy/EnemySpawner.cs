@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using Sirenix.OdinInspector;
+using SpaceInvaders.Factories;
 using SpaceInvaders.Game.Scripts.World;
-using SpaceInvaders.PlayerComponents;
+using SpaceInvaders.Transport;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,12 +11,13 @@ namespace SpaceInvaders.Enemies
 {
     public sealed class EnemySpawner : MonoBehaviour
     {
-        [SerializeField, Required] private PointsCollector _spawnPoints;
-        [SerializeField, Required] private PointsCollector _attackPoints;
-        [SerializeField, Required] private EnemyFactory _factory;
-        [SerializeField, Required] private Player _player;
+        [SerializeField, Required] private PointsProvider _spawnPoints;
+        [SerializeField, Required] private PointsProvider _attackPoints;
+        [SerializeField, Required] private ShipFactory _factory;
         [SerializeField, MinValue(0)] private Vector2 _spawnTimeRange = new(1, 2);
         
+        private Ship _player;
+
         private IEnumerator Start()
         {
             bool isEnd = false;
@@ -28,19 +31,23 @@ namespace SpaceInvaders.Enemies
             }
         }
 
-        public void Initialize()
+        public void Initialize(Ship player)
         {
-            _factory.Initialize();
+            _player = player;
         }
 
         private void SpawnEnemy()
         {
             Transform randomSpawnPoint = _spawnPoints.GetRandomPoint();
-            Enemy enemy = _factory.Create(randomSpawnPoint.position, randomSpawnPoint.rotation, randomSpawnPoint);
+            Ship enemy = _factory.Create(randomSpawnPoint.position, randomSpawnPoint.rotation, randomSpawnPoint);
                 
             Transform attackPosition = _attackPoints.GetRandomPoint();
-            enemy.SetDestination(attackPosition.position);
-            enemy.SetTarget(_player.transform);
+
+            if (enemy.TryGetComponent(out EnemyAI enemyAI) == false)
+                throw new Exception("The Enemy AI component was not found when creating an enemy ship");
+            
+            enemyAI.SetDestination(attackPosition.position);
+            enemyAI.SetTarget(_player.transform);
         }
     }
 }

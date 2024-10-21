@@ -1,12 +1,13 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using SpaceInvaders.Core;
+using SpaceInvaders.Factories;
 using SpaceInvaders.Weapons.Bullets;
 using UnityEngine;
 
 namespace SpaceInvaders.Weapons
 {
-    public sealed class Gun : MonoBehaviour, IWeapon
+    public sealed class Gun : MonoBehaviour
     {
         [SerializeField, Required] private BulletFactory _bulletFactory;
         [SerializeField, Required] private Transform _firePoint;
@@ -15,22 +16,17 @@ namespace SpaceInvaders.Weapons
         private Transform _transform;
 
         public Vector3 FirePoint => _firePoint.position;
-
-        public void Initialize()
-        {
-            _bulletFactory.Initialize();
-        }
         
         public void AddCantShootCondition(Func<bool> condition) => _canShootValidator.Add(condition);
 
-        public bool CanShoot() => _canShootValidator.IsValid();
+        public bool CanShoot => _canShootValidator.IsValid();
 
         public void Shoot() =>
             Shoot(_firePoint.up);
 
         public void Shoot(Vector2 direction)
         {
-            if (CanShoot() == false)
+            if (CanShoot == false)
                 return;
             
             Bullet bullet = _bulletFactory.Create(_firePoint.position, _firePoint.rotation, _firePoint);

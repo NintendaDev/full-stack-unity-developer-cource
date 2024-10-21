@@ -1,12 +1,15 @@
+using Sirenix.OdinInspector;
+using SpaceInvaders.Transport;
 using SpaceInvaders.PlayerInput;
 using UnityEngine;
 
-namespace SpaceInvaders.PlayerComponents
+namespace SpaceInvaders.Controllers
 {
-    [RequireComponent(typeof(Player))]
+    [RequireComponent(typeof(Ship))]
     public sealed class PlayerController : MonoBehaviour
     {
-        private Player _player;
+        [SerializeField, Required] private Ship _player;
+        
         private bool _fireRequired;
         private Vector2 _moveDirection;
         private IPlayerInput _playerInput;
@@ -14,7 +17,6 @@ namespace SpaceInvaders.PlayerComponents
         public void Initialize(IPlayerInput playerInput)
         {
             _playerInput = playerInput;
-            _player = GetComponent<Player>();
         }
 
         private void Update()

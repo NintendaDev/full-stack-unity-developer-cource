@@ -1,36 +1,33 @@
-﻿using Sirenix.OdinInspector;
-using SpaceInvaders.Timers;
+﻿using Modules.Timers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace SpaceInvaders.Weapons
 {
     public sealed class AutoShooter : MonoBehaviour
     {
+        [SerializeField, Required] private Gun _gun;
         [SerializeField, MinValue(0), Unit(Units.Second)] private float _shootPeriod = 1f;
         
         private Transform _target;
         private CountdownTimer _shootTimer;
         private bool _subscribed;
         private bool _isInitialized;
-        private IWeapon _weapon;
 
-        public void Initialize(IWeapon weapon)
+        private void Awake()
         {
-            _weapon = weapon;
             _shootTimer = new CountdownTimer(_shootPeriod);
-            _isInitialized = true;
             
-            Subscribe();
         }
 
         private void OnEnable()
         {
-            Subscribe();
+            _shootTimer.Finished += OnShootTimerFinish;
         }
 
         private void OnDisable()
         {
-            Unsubscribe();
+            _shootTimer.Finished -= OnShootTimerFinish;
         }
 
         private void Start()
@@ -47,31 +44,13 @@ namespace SpaceInvaders.Weapons
         {
             _target = target;
         }
-        
-        private void Subscribe()
-        {
-            if (_subscribed || _isInitialized == false)
-                return;
-            
-            _shootTimer.Finished += OnShootTimerFinish;
-            _subscribed = true;
-        }
 
         private void OnShootTimerFinish()
         {
             if (TryCalculateShootDirection(out Vector3 direction))
-                _weapon.Shoot(direction);
+                _gun.Shoot(direction);
             
             _shootTimer.Reset();
-        }
-
-        private void Unsubscribe()
-        {
-            if (_subscribed == false || _isInitialized == false)
-                return;
-            
-            _shootTimer.Finished -= OnShootTimerFinish;
-            _subscribed = false;
         }
 
         private bool TryCalculateShootDirection(out Vector3 direction)
@@ -81,7 +60,7 @@ namespace SpaceInvaders.Weapons
             if (_target == null)
                 return false;
             
-            direction = (_target.position - _weapon.FirePoint).normalized;
+            direction = (_target.position - _gun.FirePoint).normalized;
 
             return true;
         }

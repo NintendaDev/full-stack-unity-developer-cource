@@ -10,25 +10,20 @@ namespace SpaceInvaders.Movement
         [SerializeField, MinValue(0)] private float _reachThreshold = 0.25f;
         
         private Transform _transform;
-        private bool _isReached = true;
         private Vector2 _moveDirection;
         private Vector3 _destination;
-        private bool _isInitialized;
 
         public event Action Reached;
+        
+        public bool IsReached { get; private set; }
 
-        public void Initialize()
+        public void Awake()
         {
-            if (_isInitialized)
-                return;
-            
-            _mover.Initialize();
-            _mover.AddCantMoveCondition(() =>_isReached);
+            _mover.AddCantMoveCondition(() => IsReached);
             _transform = transform;
-            _isInitialized = true;
         }
 
-        private bool CanMove => _isInitialized && _isReached == false;
+        private bool CanMove => IsReached == false;
 
         private void Update()
         {
@@ -40,7 +35,7 @@ namespace SpaceInvaders.Movement
 
             if (_moveDirection.magnitude <= _reachThreshold)
             {
-                _isReached = true;
+                IsReached = true;
                 Reached?.Invoke();
             }
         }
@@ -56,7 +51,7 @@ namespace SpaceInvaders.Movement
         public void SetDestination(Vector3 destination)
         {
             _destination = destination;
-            _isReached = false;
+            IsReached = false;
         }
     }
 }

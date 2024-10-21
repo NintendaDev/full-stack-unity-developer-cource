@@ -8,18 +8,18 @@ namespace SpaceInvaders.Weapons.Bullets
         {
         }
 
-        protected override void OnSpawn(Bullet enemy)
+        protected override void OnSpawn(Bullet bullet)
         {
-            base.OnSpawn(enemy);
+            base.OnSpawn(bullet);
 
-            enemy.Hit += Return;
+            bullet.Hit += Return;
         }
 
-        protected override void OnDespawn(Bullet enemy)
+        protected override void OnDespawn(Bullet bullet)
         {
-            base.OnDespawn(enemy);
+            base.OnDespawn(bullet);
             
-            enemy.Hit -= Return;
+            bullet.Hit -= Return;
         }
     }
 }

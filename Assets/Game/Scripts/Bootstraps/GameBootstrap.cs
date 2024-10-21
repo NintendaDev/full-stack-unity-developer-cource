@@ -1,6 +1,7 @@
 ﻿using Sirenix.OdinInspector;
+using SpaceInvaders.Controllers;
 using SpaceInvaders.Enemies;
-using SpaceInvaders.PlayerComponents;
+using SpaceInvaders.Transport;
 using SpaceInvaders.PlayerInput;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace SpaceInvaders.Bootstraps
 {
     public sealed class GameBootstrap : MonoBehaviour
     {
-        [SerializeField, Required] private Player _player;
+        [SerializeField, Required] private Ship _player;
         [SerializeField, Required] private PlayerController _playerController;
         [SerializeField, Required] private EnemySpawner _enemySpawner;
 
@@ -19,11 +20,9 @@ namespace SpaceInvaders.Bootstraps
 
         private void Initialize()
         {
-            _player.Initialize();
-            
-            IPlayerInput playerInput = new LegacyPlayerInput();
+            IPlayerInput playerInput = new PlayerInput.PlayerInput();
             _playerController.Initialize(playerInput);
-            _enemySpawner.Initialize();
+            _enemySpawner.Initialize(_player);
         }
     }
 }

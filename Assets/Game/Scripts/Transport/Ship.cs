@@ -5,15 +5,15 @@ using SpaceInvaders.Attributes;
 using SpaceInvaders.Weapons;
 using UnityEngine;
 
-namespace SpaceInvaders.PlayerComponents
+namespace SpaceInvaders.Transport
 {
-    public sealed class Player : MonoBehaviour
+    public sealed class Ship : MonoBehaviour
     {
         [SerializeField, Required] private Mover _mover;
         [SerializeField, Required] private Health _health;
         [SerializeField, Required] private Gun _gun;
 
-        public Action<Player> Died;
+        public Action<Ship> Destroyed;
         
         private void OnEnable()
         {
@@ -25,17 +25,12 @@ namespace SpaceInvaders.PlayerComponents
             _health.Died -= OnDie;
         }
 
-        public void Initialize()
-        {
-            _gun.Initialize();
-            _mover.Initialize();
-            _health.Initialize();
-        }
-
         public void Fire() => _gun.Shoot();
         
         public void Move(Vector2 moveDirection) => _mover.Move(moveDirection);
+        
+        public void Reset() => _health.Reset();
 
-        private void OnDie() => Died?.Invoke(this);
+        private void OnDie() => Destroyed?.Invoke(this);
     }
 }

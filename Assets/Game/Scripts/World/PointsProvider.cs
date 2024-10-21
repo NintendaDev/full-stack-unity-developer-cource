@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SpaceInvaders.Game.Scripts.World
 {
-    public sealed class PointsCollector : MonoBehaviour
+    public sealed class PointsProvider : MonoBehaviour
     {
         [SerializeField, RequiredListLength(1, null)] 
         private Transform[] _points;

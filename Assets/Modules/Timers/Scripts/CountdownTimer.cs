@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpaceInvaders.Timers
+namespace Modules.Timers
 {
     public sealed class CountdownTimer
     {
